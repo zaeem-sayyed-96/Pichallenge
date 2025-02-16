@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Format: owner/repository
+        // Repository in the format: owner/repository
         GITHUB_REPO = 'zaeem-sayyed-96/Pichallenge'
         BRANCH = 'main'
     }
@@ -15,9 +15,16 @@ pipeline {
             }
         }
 
+        stage('Install bc') {
+            steps {
+                // Install bc (Debian/Ubuntu systems)
+                sh 'sudo apt-get update && sudo apt-get install -y bc'
+            }
+        }
+
         stage('Run Algorithm') {
             steps {
-                // Ensure the algorithm script is executable and run it
+                // Make sure the algorithm script is executable and run it
                 sh 'chmod +x algorithm.sh && ./algorithm.sh'
             }
         }
